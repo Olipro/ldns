@@ -991,7 +991,7 @@ ldns_dnssec_zone_create_nsec3s_mkmap(ldns_dnssec_zone *zone,
 	    ; hashmap_node  = ldns_rbtree_next(hashmap_node)
 	    ) {
 		current_name = (ldns_dnssec_name *) hashmap_node->data;
-		nsec_rr = ((ldns_dnssec_name *) hashmap_node->data)->nsec;
+		nsec_rr = current_name->nsec;
 		if (nsec_rr) {
 			ldns_rr_list_push_rr(nsec3_list, nsec_rr);
 		}

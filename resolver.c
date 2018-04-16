@@ -800,7 +800,6 @@ ldns_resolver_new_frm_fp_l(ldns_resolver **res, FILE *fp, int *line_nr)
 	keyword[LDNS_RESOLV_SORTLIST] = "sortlist";
 	keyword[LDNS_RESOLV_OPTIONS] = "options";
 	keyword[LDNS_RESOLV_ANCHOR] = "anchor";
-	expect = LDNS_RESOLV_KEYWORD;
 
 	r = ldns_resolver_new();
 	if (!r) {

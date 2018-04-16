@@ -393,7 +393,6 @@ ldns_rr_new_frm_str_internal(ldns_rr **newrr, const char *str,
 		if (-1 == (c = ldns_bget_token(
 				rd_buf, rd, delimiters, LDNS_MAX_RDFLEN))) {
 
-			done = true;
 			break;
 		}
 		/* hmmz, rfc3597 specifies that any type can be represented 
