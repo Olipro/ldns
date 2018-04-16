@@ -746,6 +746,7 @@ ldns_dnssec_zone_new_frm_fp_l(ldns_dnssec_zone** z, FILE* fp, const ldns_rdf* or
 		newzone = NULL;
 	} else {
 		ldns_dnssec_zone_free(newzone);
+		newzone = NULL;
 	}
 
 error:
