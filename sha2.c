@@ -421,7 +421,7 @@ static void ldns_sha256_Transform(ldns_sha256_CTX* context,
                                   const sha2_word32* data) {
 	volatile sha2_word32	a, b, c, d, e, f, g, h;
 	sha2_word32		s0, s1;
-	volatile sha2_word32	T1, T2,
+	volatile sha2_word32	T1, T2;
 	sha2_word32		*W256;
 	int		j;
 

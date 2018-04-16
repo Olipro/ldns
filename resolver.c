@@ -858,6 +858,7 @@ ldns_resolver_new_frm_fp_l(ldns_resolver **res, FILE *fp, int *line_nr)
 				/* default domain dname */
 				gtr = ldns_fget_token_l(myfp, word, LDNS_PARSE_NORMAL, 0, line_nr);
 				if (gtr == 0) {
+					ldns_resolver_deep_free(r);
 					if(!fp) fclose(myfp);
 					return LDNS_STATUS_SYNTAX_MISSING_VALUE_ERR;
 				}
@@ -880,6 +881,7 @@ ldns_resolver_new_frm_fp_l(ldns_resolver **res, FILE *fp, int *line_nr)
 				/* NS aaaa or a record */
 				gtr = ldns_fget_token_l(myfp, word, LDNS_PARSE_NORMAL, 0, line_nr);
 				if (gtr == 0) {
+					ldns_resolver_deep_free(r);
 					if(!fp) fclose(myfp);
 					return LDNS_STATUS_SYNTAX_MISSING_VALUE_ERR;
 				}

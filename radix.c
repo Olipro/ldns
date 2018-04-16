@@ -233,6 +233,7 @@ ldns_radix_insert(ldns_radix_t* tree, uint8_t* key, radix_strlen_t len,
 		prefix->data = data;
 		prefix->key = key;
 		prefix->klen = len; /* redundant */
+		LDNS_FREE(add);
 	} else {
 		/** Prefix found */
 		uint8_t byte = key[pos];
@@ -1120,12 +1121,14 @@ ldns_radix_array_split(ldns_radix_array_t* array, uint8_t* key,
 		if (array->len - common_len > 1) {
 			if (!ldns_radix_prefix_remainder(common_len+1,
 				array->str, array->len, &s1, &l1)) {
+				LDNS_FREE(common);
 				return 0;
 			}
 		}
 		if (strlen_to_add - common_len > 1) {
 			if (!ldns_radix_prefix_remainder(common_len+1,
 				str_to_add, strlen_to_add, &s2, &l2)) {
+				LDNS_FREE(common);
 				return 0;
 			}
 		}

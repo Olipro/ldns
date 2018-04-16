@@ -918,6 +918,7 @@ ldns_axfr_start(ldns_resolver *resolver, const ldns_rdf *domain, ldns_rr_class c
 
 	if (resolver->_socket == SOCK_INVALID) {
 		ldns_pkt_free(query);
+		LDNS_FREE(src);
 		LDNS_FREE(ns);
 		return LDNS_STATUS_NETWORK_ERR;
 	}

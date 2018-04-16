@@ -1098,6 +1098,7 @@ ldns_rdf2buffer_str_ipseckey(ldns_buffer *output, const ldns_rdf *rdf)
                         if(!gateway_data)
                                 return LDNS_STATUS_MEM_ERR;
 			if (ldns_rdf_size(rdf) < offset + LDNS_IP4ADDRLEN) {
+				LDNS_FREE(gateway_data);
 				return LDNS_STATUS_ERR;
 			}
 			memcpy(gateway_data, &data[offset], LDNS_IP4ADDRLEN);
@@ -1114,6 +1115,7 @@ ldns_rdf2buffer_str_ipseckey(ldns_buffer *output, const ldns_rdf *rdf)
                         if(!gateway_data)
                                 return LDNS_STATUS_MEM_ERR;
 			if (ldns_rdf_size(rdf) < offset + LDNS_IP6ADDRLEN) {
+				LDNS_FREE(gateway_data);
 				return LDNS_STATUS_ERR;
 			}
 			memcpy(gateway_data, &data[offset], LDNS_IP6ADDRLEN);

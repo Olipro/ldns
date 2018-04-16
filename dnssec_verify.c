@@ -1021,8 +1021,10 @@ ldns_dnssec_derive_trust_tree_no_sig_time(
 						data_chain->parent, 
 						cur_parent_rr,
 						check_time);
-			(void) ldns_dnssec_trust_tree_add_parent(new_tree,
-			            cur_parent_tree, NULL, result);
+			if (ldns_dnssec_trust_tree_add_parent(new_tree,
+			            cur_parent_tree, NULL, result) == LDNS_STATUS_ERR) {
+				LDNS_FREE(cur_parent_tree);
+			}
 		}
 	}
 }

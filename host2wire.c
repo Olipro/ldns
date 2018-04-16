@@ -77,6 +77,7 @@ ldns_dname2buffer_wire_compress(ldns_buffer *buffer, const ldns_rdf *name, ldns_
 			node->data = (void *) (intptr_t) ldns_buffer_position(buffer);
 			if(!ldns_rbtree_insert(compression_data,node))
 			{
+				LDNS_FREE(node);
 				/* fprintf(stderr,"Name not found but now it's there?\n"); */
 			}
 		}
