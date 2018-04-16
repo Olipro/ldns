@@ -46,7 +46,7 @@
 void
 ldns_sha1_transform(uint32_t state[5], const unsigned char buffer[LDNS_SHA1_BLOCK_LENGTH])
 {
-    uint32_t a, b, c, d, e;
+    volatile uint32_t a, b, c, d, e;
     typedef union {
         unsigned char c[64];
         unsigned int l[16];

@@ -419,8 +419,10 @@ static void ldns_sha256_Transform(ldns_sha256_CTX* context,
 
 static void ldns_sha256_Transform(ldns_sha256_CTX* context,
                                   const sha2_word32* data) {
-	sha2_word32	a, b, c, d, e, f, g, h, s0, s1;
-	sha2_word32	T1, T2, *W256;
+	volatile sha2_word32	a, b, c, d, e, f, g, h;
+	sha2_word32		s0, s1;
+	volatile sha2_word32	T1, T2,
+	sha2_word32		*W256;
 	int		j;
 
 	W256 = (sha2_word32*)context->buffer;
@@ -525,8 +527,6 @@ void ldns_sha256_update(ldns_sha256_CTX* context, const sha2_byte *data, size_t 
 			/* The buffer is not yet full */
 			MEMCPY_BCOPY(&context->buffer[usedspace], data, len);
 			context->bitcount += len << 3;
-			/* Clean up: */
-			usedspace = freespace = 0;
 			return;
 		}
 	}
@@ -542,8 +542,6 @@ void ldns_sha256_update(ldns_sha256_CTX* context, const sha2_byte *data, size_t 
 		MEMCPY_BCOPY(context->buffer, data, len);
 		context->bitcount += len << 3;
 	}
-	/* Clean up: */
-	usedspace = freespace = 0;
 }
 
 typedef union _ldns_sha2_buffer_union {
@@ -613,7 +611,6 @@ void ldns_sha256_final(sha2_byte digest[], ldns_sha256_CTX* context) {
 
 	/* Clean up state data: */
 	MEMSET_BZERO(context, sizeof(ldns_sha256_CTX));
-	usedspace = 0;
 }
 
 unsigned char *
@@ -730,9 +727,11 @@ static void ldns_sha512_Transform(ldns_sha512_CTX* context,
 
 static void ldns_sha512_Transform(ldns_sha512_CTX* context,
                                   const sha2_word64* data) {
-	sha2_word64	a, b, c, d, e, f, g, h, s0, s1;
-	sha2_word64	T1, T2, *W512 = (sha2_word64*)context->buffer;
-	int		j;
+	volatile sha2_word64	a, b, c, d, e, f, g, h;
+	sha2_word64		s0, s1;
+	volatile sha2_word64	T1, T2;
+	sha2_word64		*W512 = (sha2_word64*)context->buffer;
+	int			j;
 
 	/* initialize registers with the prev. intermediate value */
 	a = context->state[0];
@@ -834,8 +833,6 @@ void ldns_sha512_update(ldns_sha512_CTX* context, const sha2_byte *data, size_t 
 			/* The buffer is not yet full */
 			MEMCPY_BCOPY(&context->buffer[usedspace], data, len);
 			ADDINC128(context->bitcount, len << 3);
-			/* Clean up: */
-			usedspace = freespace = 0;
 			return;
 		}
 	}
@@ -851,8 +848,6 @@ void ldns_sha512_update(ldns_sha512_CTX* context, const sha2_byte *data, size_t 
 		MEMCPY_BCOPY(context->buffer, data, len);
 		ADDINC128(context->bitcount, len << 3);
 	}
-	/* Clean up: */
-	usedspace = freespace = 0;
 }
 
 static void ldns_sha512_Last(ldns_sha512_CTX* context) {
